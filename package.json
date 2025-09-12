@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "name": "vers",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "The VERS specification",
+  "scripts": {
+    "ipr-check": "node scripts/check-form Ecma-TC54/ECMA-xxx-VERS HEAD --all",
+    "build-head": "npm run build-only -- --lint-spec --strict",
+    "prebuild-only": "npm run clean && mkdir out && cp -R img out",
+    "build-only": "ecmarkup --verbose spec.html --multipage out",
+    "build": "npm run build-head",
+    "build-for-pdf": "ecmarkup --verbose spec.html --printable --assets external --assets-dir out out/index.html",
+    "pdf": "npm run build-for-pdf && pagedjs-cli --page-size a4 out/index.html -o out/index.pdf",
+    "prebuild-snapshot": "npm run clean",
+    "build-snapshot": "npm run build-head && node scripts/insert_snapshot_warning.js",
+    "clean": "rm -rf out",
+    "format": "emu-format --write spec.html",
+    "test": "exit 0",
+    "watch": "npm run build-only -- --lint-spec --watch",
+    "check-commit": "node scripts/check-commit"
+  },
+  "repository": "Ecma-TC54/ECMA-xxx-VERS",
+  "author": "ECMA TC54",
+  "homepage": "https://tc54.org/vers/",
+  "devDependencies": {
+    "ecmarkup": "21.3.1",
+    "glob": "^7.1.6",
+    "jsdom": "^15.0.0",
+    "pagedjs": "^0.4.3",
+    "pagedjs-cli": "^0.4.3",
+    "tar-stream": "^2.2.0",
+    "tiny-json-http": "^7.1.2"
+  },
+  "engines": {
+    "node": ">= 18"
+  }
+}
