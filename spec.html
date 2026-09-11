@@ -282,26 +282,25 @@
   }
 </style>
 <pre class="metadata">
-  title: VERS Specification
+  title: VERS specification
+  date: 2026-12-06
   shortname: ECMA-xxx
   status: draft
-  location: https://tc54.org/ecmaXXX/
+  location: https://tc54.org/vers/
   markEffects: true
-  version: DRAFT
-  <!-- version: 1<sup>st</sup> Edition -->
-  <!-- date: 2024-06-25 -->
+  version: 1<sup>st</sup> Edition
 </pre>
 <p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
 <div id="metadata-block">
-  <h1>About this Specification</h1>
-  <p>The document at <a href="https://tc54.org/ecmaXXX/">https://tc54.org/ecmaXXX/</a> is the most accurate and up-to-date VERS specification.</p>
+  <h1>About this specification</h1>
+  <p>The document at <a href="https://tc54.org/vers/">https://tc54.org/vers/</a> is the most accurate and up-to-date VERS specification.</p>
   <p>This document is available as <a href>a single page</a> and as <a href="multipage/">multiple pages</a>.</p>
-  <h1>Contributing to this Specification</h1>
+  <h1>Contributing to this specification</h1>
   <p>This specification is developed on GitHub with the help of the VERS community. There are a number of ways to contribute to the development of this specification:</p>
   <ul>
-    <li>GitHub Repository: <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">https://github.com/Ecma-TC54/ECMA-xxx-VERS</a></li>
-    <li>Issues: <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS/issues">All Issues</a>, <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS/issues/new">File a New Issue</a></li>
-    <li>Pull Requests: <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS/pulls">All Pull Requests</a>, <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS/pulls/new">Create a New Pull Request</a></li>
+    <li>GitHub Repository: <a href="https://github.com/Ecma-TC54/ECMA-TODO">https://github.com/Ecma-TC54/ECMA-TODO</a></li>
+    <li>Issues: <a href="https://github.com/Ecma-TC54/ECMA-TODO/issues">All Issues</a>, <a href="https://github.com/Ecma-TC54/ECMA-TODO/issues/new">File a New Issue</a></li>
+    <li>Pull Requests: <a href="https://github.com/Ecma-TC54/ECMA-TODO/pulls">All Pull Requests</a>, <a href="https://github.com/Ecma-TC54/ECMA-TODO/pulls/new">Create a New Pull Request</a></li>
     <li>
       Editors:
       <ul>
@@ -323,76 +322,794 @@
 
 <emu-intro id="sec-intro">
   <h1>Introduction</h1>
-  <p>TODO</p>
+  <p>There is no universal notation for software package version ranges and
+    there is no universal way to compare two versions of a package even though the
+    concepts in many version range notations are similar. Each package type or
+    ecosystem may define its own version range notation and version comparison
+    semantics for dependencies.</p>
+  <p>For security advisories, the lack of a portable and compact notation for
+    vulnerable package version ranges means that these ranges may be ambiguous
+    or hard to compute and may be replaced by complete enumerations of all
+    impacted versions. Expressing and resolving a version range is often a complex
+    and error prone task because of the ambiguity and the use of enumerations of
+    impacted versions is an approach that may require frequent updates. A version
+    range is a necessary, compact, and practical way to reference multiple
+    versions rather than listing all versions.</p>
+  <p>VErsion Range Specifier (VERS) introduces a standard URI-based syntax to
+    define package version ranges and the semantics (algorithm or procedure) to
+    interpret each version range notation. This standardization provides more
+    accurate and consistent analysis of package version dependencies and the
+    impact of known vulnerabilities or bugs on a package. VERS was developed in
+    concert with the Package-URL (PURL) specification standardized with
+    <a href="https://ecma-tc54.github.io/ECMA-427/">ECMA-427</a>.</p>
+  <p>Challenges addressed by VERS:</p>
+  <ul>
+    <li><strong>Ambiguity of package dependencies</strong>: With diverse version range notations across ecosystems, accurately and consistently identifying software package dependencies is a long-standing problem. VERS eliminates this ambiguity by creating a universal version range notation with a predictable structure.</li>
+    <li><strong>Ambiguity of package versions affected by a vulnerability</strong>: With diverse version range notations across ecosystems, accurately and consistently identifying software package versions affected by a vulnerability or bug is extremely difficult. VERS eliminates this ambiguity by creating a universal version range notation with a predictable structure.</li>
+    <li><strong>Tooling and Automation</strong>: By standardizing version range analysis, VERS simplifies tooling development, automation, and integration for tasks such as software composition analysis and software vulnerability management.</li>
+  </ul>
+  <p>As software supply chain security becomes a global priority, formalizing VERS
+    as an international standard supports its adoption and consistent
+    implementation. Standardization under Ecma International Technical Committee
+    54 (TC54) positions VERS as a foundational building block for secure,
+    transparent, and efficient software ecosystems worldwide.</p>
+  <p>By enabling a universally recognized and implementable specification, VERS
+    aligns with global efforts to improve the security, reliability, and
+    accountability of software supply chains. Its adoption ensures that
+    organizations and developers can rely on a common way to specify and interpret
+    package version ranges for managing package dependency resolution and software
+    vulnerability analysis and mitigation.</p>
+  <p class="adoption-info">This Ecma Standard was developed by Technical Committee 54 and was adopted by the General Assembly of December 2026.</p>
 </emu-intro>
 
 <emu-clause id="sec-scope">
   <h1>Scope</h1>
-  <p>This Standard defines the VERS specification.</p>
+  <p>This Standard defines the Version Range Specifier (VERS) syntax for specifying
+    a software version range notation as a compact alternative to enumerating a
+    list of software versions. The primary use cases for VERS are identifying
+    software package versions that are impacted by a vulnerability and analyzing
+    software package version dependencies.</p>
+  <p>A VERS notation is a valid URI composed of two components to identify a
+    software package. The VERS type component defines the ecosystem-specific
+    structure and meaning for the VERS constraints component. This Standard
+    specifies the syntax for VERS and the schema for defining VERS types, but it
+    does not include any specific VERS type definitions.</p>
 </emu-clause>
 
 <emu-clause id="sec-conformance">
   <h1>Conformance</h1>
-  <emu-clause id="sec-requirements-terminology">
-    <h1>Requirements Terminology</h1>
-    <p>In this standard, the words that are used to define the significance of each requirement are detailed below. These words are used in accordance with their definitions in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt), and their respective meanings are reproduced below:</p>
-    <ul>
-      <li>Must: This word, or the adjective “required” and the auxiliary verb "shall", means that the item is an absolute requirement of the standard.</li>
-      <li>Should: This word, or the adjective “recommended”, means that there might exist valid reasons in particular circumstances to ignore this item, but the full implications should be understood and the case carefully weighed before making an implementation decision.</li>
-      <li>May: This word, or the adjective “optional”, means that this item is truly optional.</li>
-    </ul>
-    <p>The words "must not", "shall not", "should not", and "not recommended", are the negative forms of "must", "shall", "should", and "recommended", respectively. There is no negative form of "may".</p>
-  </emu-clause>
-  <emu-clause id="sec-implementation-conformance">
-    <h1>Implementation Conformance</h1>
-    <p>A conforming implementation of VERS must fully implement and support all elements defined within this specification, including the syntax, components, and semantic requirements for constructing and interpreting valid VERS.</p>
-    <p>A conforming implementation of VERS must adhere to the syntax defined in this specification, ensuring that all VERS are parsed, constructed, and validated according to the prescribed rules. The implementation must provide full support for ecosystem-agnostic behaviour, enabling VERS to function consistently and reliably across diverse environments.</p>
-    <p>All required components of a VERS, such as the scheme, type, and name, must be present and validated according to the rules defined in this specification. Additionally, optional components, including qualifiers and subpaths, must be handled appropriately if provided, in full compliance with their specified behaviours.</p>
-    <p>Implementations must ensure that equivalent VERS are consistently resolved to the same canonical representation. This includes strict adherence to normalisation and equivalence rules. Furthermore, implementations must process URI encoding and decoding for VERS components according to the standards outlined in RFC 3986.</p>
-    <p>Invalid VERS that fail to conform to the specification must be identified and rejected by any conforming implementation. This guarantees the integrity and reliability of PURLs in all supported contexts.</p>
-    <p>A conforming implementation of VERS may extend its functionality by providing ecosystem-specific validation, processing, or metadata handling, as long as these extensions do not violate the core specification. Additionally, implementations may offer auxiliary tools or features, such as utilities for constructing or validating VERS, provided they align with the standard's requirements.</p>
-    <p>A conforming implementation must not redefine or alter the core syntax, components, or semantics defined by this specification. Any prohibited extensions explicitly identified in the specification must not be implemented. Furthermore, behaviours that compromise the interoperability of VERS across tools, platforms, or ecosystems are strictly disallowed.</p>
-    <p>A conforming implementation of VERS may choose to implement or not implement <dfn>Normative Optional</dfn> subclauses. If any Normative Optional behaviour is implemented, all of the behaviour in the containing Normative Optional clause must be implemented. A Normative Optional clause is denoted in this specification with the words "Normative Optional" in a coloured box, as shown below.</p>
-  </emu-clause>
+  <p>A conforming implementation of Version Range Specifier (VERS) Standard shall
+    fully implement and support all elements defined within this Standard,
+    including the syntax, components, and semantic requirements for constructing and
+    interpreting valid VERS notations.</p>
+  <p>A conforming implementation of VERS shall adhere to the syntax defined in this
+    Standard, ensuring that all VERS notations are constructed, parsed, and
+    validated according to the prescribed rules. The implementation shall provide
+    full support for ecosystem-agnostic behaviour, enabling VERS to function
+    consistently and reliably across diverse environments.</p>
+  <p>All required components of a VERS notation - <strong>scheme</strong>, <strong>type</strong>, and
+    <strong>constraints</strong> - shall be present and validated according to the rules
+    defined in this Standard.</p>
+  <p>Implementations shall ensure that equivalent VERS notations are consistently
+    resolved to the same canonical representation. This includes strict adherence
+    to normalisation and equivalence rules. Furthermore, implementations shall
+    process URI encoding and decoding for VERS components according to the
+    standards outlined in RFC 3986.</p>
+  <p>Invalid VERS notations that fail to conform to the specification shall be
+    identified and rejected by any conforming implementation. This guarantees the
+    integrity and reliability of VERS notations in all supported contexts.</p>
+  <p>A conforming implementation of VERS may extend its functionality by providing
+    ecosystem-specific validation, processing, or metadata handling, as long as
+    these extensions do not violate the core specification. Additionally,
+    implementations may offer auxiliary tools or features, such as utilities for
+    constructing or validating VERS notations, provided they align with the
+    Standard's requirements.</p>
+  <p>A conforming implementation shall not redefine or alter the core syntax,
+    components, or semantics defined by this Standard. Any prohibited
+    extensions explicitly identified in the specification shall not be
+    implemented. Furthermore, behaviours that compromise the interoperability of
+    VERS across tools, platforms, or ecosystems are strictly disallowed.</p>
 </emu-clause>
 
 <emu-clause id="sec-normative-references">
-  <h1>Normative References</h1>
-  <p>The following referenced documents are indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+  <h1>Normative references</h1>
+  <p>The following documents are referred to in the text in such a way that some or
+    all of their content constitutes requirements of this document. For dated
+    references, only the edition cited applies. For undated references, the
+    latest edition of the referenced document (including any amendments) applies.</p>
   <p>
-    INCITS 4-1986 [R2022], <i>Information Systems - Coded Character Sets - 7-Bit Standard Code for Information Interchange (7-Bit ASCII)</i>.<br>
-    <a href="https://webstore.ansi.org/standards/incits/incits1986r2022">https://webstore.ansi.org/standards/incits/incits1986r2022</a>
+    ECMA-262, <i>ECMAScript® language specification</i><br>
+    <a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">https://ecma-international.org/publications-and-standards/standards/ecma-262/</a>
   </p>
   <p>
-    RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i>.<br>
+    RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
     <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a>
   </p>
   <p>
-    The Unicode Standard.<br>
+    The Unicode Standard<br>
     <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
-  </p>
-  <p>
-    ECMA-404, <i>The JSON Data Interchange Format</i>.<br>
-    <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-404/">https://www.ecma-international.org/publications-and-standards/standards/ecma-404/</a>
-  </p>
-  <p>
-    IETF Draft, March 2018, <i>JSON Schema Validation: A Vocabulary for Structural Validation of JSON (Draft-07)</i>.<br>
-    <a href="https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01">https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01</a>
   </p>
 </emu-clause>
 
 <emu-clause id="sec-overview">
   <h1>Overview</h1>
-  <p>TODO</p>
+  <p>This Clause contains a non-normative overview of the VERS specification.</p>
+  <p>The Version Range Specifier (VERS) Standard defines a lightweight and
+    compact URI-based syntax for specifying software package version ranges. VERS
+    provides a practical alternative to enumerating all versions for common use
+    cases like identifying package versions impacted by a vulnerability or
+    analyzing package dependencies. VERS also defines the semantics (algorithm or
+    procedure) to interpret each VERS notation.</p>
+  <p>This Standard focuses on the core aspects of VERS, including its syntax,
+    required components, optional attributes, and conformance requirements. VERS
+    is complementary to the Package-URL (PURL) specification standardized as
+    ECMA-427.</p>
+  <p>The primary audience for this Standard includes developers, tool implementers,
+    and organisations involved in software composition analysis, dependency
+    management, and supply chain security.</p>
+  <p>While this document serves as the authoritative reference for implementing
+    VERS, it is complemented by various ecosystem-specific guidance documents,
+    examples, and related standards. These resources provide additional context
+    and practical insights for leveraging VERS effectively.</p>
+  <p>This overview is non-normative and serves to provide context for the
+    specification’s intent, purpose, and audience. For detailed requirements and
+    conformance criteria, refer to the normative clauses of this Standard.</p>
 </emu-clause>
 
 <emu-clause id="sec-vers-specification">
   <h1>VERS Specification</h1>
-  <p>TODO</p>
+  <p>VERS stands for "Version Range Specifier". A VERS is an ASCII URI string
+    composed of three components:</p>
+  <pre>
+    <code lang="plaintext">
+      scheme:type/constraints
+    </code>
+  </pre>
+
+  <p>When there are multiple constraints, they are separated by an unencoded pipe '|'.</p>
+  <p>Components are separated by a specific character for unambiguous parsing.</p>
+
+  <emu-table>
+    <emu-caption>Components of a VERS</emu-caption>
+    <table>
+      <thead>
+      <tr>
+        <th>Component</th>
+        <th>Requirement</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tr>
+        <td>scheme</td>
+        <td>Required</td>
+        <td>The URI scheme with the constant value of 'vers'.</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>Required</td>
+        <td>The Version Range Specifier type such as 'deb', 'npm', 'pypi' 'semver' etc.</td>
+      </tr>
+      <tr>
+        <td>constraints</td>
+        <td>Required</td>
+        <td>A sequence of one or more version ranges.</td>
+      </tr>
+    </table>
+  </emu-table>
+
+  <emu-clause id="sec-vers-specification-vers-is-a-uri">
+    <h1>A VERS is a URI scheme</h1>
+    <p>A VERS is a valid URI scheme that conforms to URI definitions or
+      specifications at: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>.</p>
+
+    <emu-example caption="Node Package Manager">
+      <pre><code>vers:npm/1.2.3|>=2.0.0|<5.0.0</code></pre>
+    </emu-example>
+    <emu-example caption="Ruby Gem">
+      <pre><code>vers:gem/>=2.2.0|!=2.2.1|<2.3.0</code></pre>
+    </emu-example>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-specification-separator-characters">
+    <h1>Separator characters</h1>
+    <p>This is how each of the Separator Characters is used:</p>
+    <ul>
+      <li>':' (colon) is the separator between <strong>scheme</strong> and <strong>type</strong></li>
+      <li>'/' (slash) is the separator between <strong>type</strong> and <strong>constraints</strong></li>
+      <li>'|' (pipe) is the separator between segments of <strong>constraints</strong></li>
+    </ul>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-specification-rules">
+    <h1>Rules for each VERS component</h1>
+
+    <emu-clause id="sec-vers-specification-rules-scheme">
+      <h1>Scheme</h1>
+      <ul>
+        <li>The <strong>scheme</strong> is a constant with the value "vers".</li>
+        <li>The <strong>scheme</strong> shall be followed by an unencoded colon ':'.</li>
+      </ul>
+    </emu-clause>
+
+    <emu-clause id="sec-vers-specification-rules-type">
+      <h1>Type</h1>
+      <ul>
+        <li>The <strong>type</strong> shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
+        <li>The <strong>type</strong> shall start with an ASCII letter.</li>
+        <li>The <strong>type</strong> shall not be percent-encoded.</li>
+        <li>The <strong>type</strong> is case insensitive and lowercase.</li>
+        <li>The <strong>type</strong> shall be followed by a slash '/'.</li>
+      </ul>
+      <p>A <strong>type</strong> defines:</p>
+      <ul>
+        <li>the specific notation and conventions used for <strong>constraints</strong> encoded according to this <strong>type</strong></li>
+        <li>how a <strong>type</strong>-specific range notation can be transformed into VERS <strong>constraints</strong></li>
+        <li>how two versions are compared to determine if a version is inside or outside a range</li>
+        <li>how to compare two version strings using <strong>comparators</strong></li>
+        <li>the structure of a <strong>version</strong> string such as "1.2.3". For example, the "semver" specification for version numbers defines a version as composed primarily of three dot-separated numeric segments named "major", "minor" and "patch".</li>
+      </ul>
+      <p>By convention a <strong>type</strong> should be the same as the PURL <strong>type</strong> for a given
+        package or software ecosystem. It is, however, permissible to define a <strong>type</strong>
+        that does not match an existing PURL <strong>type</strong> such as a version scheme that
+        applies to a single package or project or a general purpose version scheme
+        like 'semver'.</p>
+      <p>This Standard includes the <i>VERS Type Definition Schema</i> but it does not
+        include the set of current "registered" VERS type definition files (JSON
+        format) because there are ongoing additions and changes to these files. The
+        current "registered" VERS <strong>type</strong> definition files are located at:
+        https://www.packageurl.org/vers-types/. Registration refers to the Package-URL
+        community process for adding a new VERS <strong>type</strong>.</p>
+      <p>There are two rules related to the set of registered VERS <strong>type</strong> definitions
+        for conforming tools to validate the VERS <strong>type</strong> component:</p>
+      <ul>
+        <li>If a VERS <strong>type</strong> is registered, then a VERS is invalid if it does
+          not conform to all of the rules for the corresponding VERS <strong>type</strong>
+          definition.</li>
+        <li>If a VERS <strong>type</strong> is not registered, then the <strong>type</strong> component is valid
+          if it conforms to the rules stated in the <strong>type</strong> component rules in this
+          Clause of the Standard. In this case tools should report a warning that the
+          VERS <strong>type</strong> is not registered.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-vers-specification-rules-constraints">
+      <h1>Constraints</h1>
+      <ul>
+        <li>The <strong>constraints</strong> component shall be preceded by an unencoded
+          '/' slash separator and shall contain one or more <strong>constraints</strong>.</li>
+        <li>Each segment of the <strong>constraints</strong> component is called a <strong>constraint</strong>.
+          Each <strong>constraint</strong> is composed of either a single <strong>version</strong> as in
+          '1.2.3' or the combination of a <strong>comparator</strong> and a <strong>version</strong> as in
+          '>=2.0.0'.</li>
+        <li>A <strong>comparator</strong> always precedes the <strong>version</strong> with no characters allowed
+          between the <strong>comparator</strong> and the <strong>version</strong>.</li>
+        <li>Multiple <strong>constraints</strong> segments shall be separated by an unencoded
+          pipe '|'. The pipe "|" has no special meaning other than being a separator.</li>
+        <li>There is no limit on the number of <strong>constraints</strong> segments.</li>
+      </ul>
+      <p>The sequence of <strong>constraints</strong> represents distinct intervals in the version
+        timeline of a package. The separators do not mean "and" or "or". They are
+        separators in a sequence of <strong>constraints</strong> segments.</p>
+      <emu-clause id="sec-vers-specification-rules-constraints-comparators">
+        <h1>Comparators</h1>
+        <p>A <strong>comparator</strong> is composed of these ASCII characters:</p>
+        <ul>
+          <li>the Equals character: '=' (equals, '=')</li>
+          <li>the Not Equals character: '!' (exclamation mark, '!')</li>
+          <li>the Greater Than character: '>' (greater than, '>')</li>
+          <li>the Less Than character: '<' (less than, '<')</li>
+          <li>the Asterisk character: '\*' (asterisk, '*')</li>
+        </ul>
+        <p>A <strong>comparator</strong> shall be one of the following:</p>
+        <ul>
+          <li>*null* is the Equality <strong>comparator</strong> and the default. For example,
+            'vers:npm/1.2.3` means that the <strong>version</strong> is equal to "1.2.3". If a
+            <strong>constraint</strong> string starts with '=', tools shall report an error.</li>
+          <li>'!=' is the Inequality <strong>comparator</strong>. This means that a version shall not
+            be equal to the provided version and it shall be excluded from the range.
+            For example: '!=1.2.3' means that version "1.2.3" is excluded.</li>
+          <li>'<' is the Less-than <strong>comparator</strong>. This includes all versions less than
+            the provided version.</li>
+          <li>'<=': is the Less-or-equal <strong>comparator</strong>. This includes all versions less
+            than or equal to the provided version. For example '<=1.2.3' means
+            less than or equal to "1.2.3".</li>
+          <li>'>' is the Greater-than <strong>comparator</strong>. This includes all versions greater
+            than the provided version.</li>
+          <li>'>=' is the Greater-or-equal <strong>comparator</strong>. This includes all versions
+            greater than or equal to the provided version. For example '>=1.2.3'
+            means greater than or equal to "1.2.3".</li>
+          <li>The special Asterisk '\*' <strong>comparator</strong> matches any version. It shall be
+            used alone and exclusive of any other <strong>constraint</strong> and shall not be
+            followed by a <strong>version</strong>. For example, 'vers:deb/\*' represents all
+            versions of a Debian package. This includes past, current and possible
+            future versions.</li>
+        </ul>
+      </emu-clause>
+      <emu-clause id="sec-vers-specification-rules-constraints-version">
+        <h1>Version</h1>
+        <p>A <strong>version</strong> is an ASCII string.</p>
+        <ul>
+          <li>A <strong>version</strong> contains only printable ASCII letters, digits and punctuation.</li>
+          <li>If a <strong>version</strong> contains any of these characters:
+            '>', '<', '=', '!', '*', '|', '%', these characters shall be
+            percent-encoded using URI percent-encoding rules.</li>
+          <li>ASCII whitespace is not permitted in a VERS string except for a
+            percent-encoded space ('%20'). Tools shall report an error if any other
+            ASCII whitespace character, for example tab or line feed, is used.
+            Percent-encoding is applied to the literal <strong>version</strong> data: a literal '%'
+            in a <strong>version</strong> shall be encoded as '%25', while the '%' that starts an
+            existing percent-encoded triplet shall not be encoded again.</li>
+          <li>Tools shall report an error for invalid percent-encoded sequences.</li>
+        </ul>
+        <p>A single <strong>version</strong> in a <strong>constraint</strong> means that a package version equal to
+          this version satisfies the range specification. Equality is based on the
+          equality of two normalised version strings according to the applicable VERS
+          <strong>type</strong>. For most schemes, this is a simple string equality. A <strong>type</strong> may,
+          however, define normalisation or other rules for equality such as the "pypi"
+          rules from PEP 440.</p>
+        <p>A package version satisfies VERS <strong>constraints</strong> if it is contained within any
+          of the segments defined by the <strong>constraints</strong>.</p>
+      </emu-clause>
+    </emu-clause>
+  </emu-clause>
+  <emu-clause id="sec-vers-specification-validation-rules">
+    <h1>VERS validation rules</h1>
+    <p>VERS validation rules are designed such that a VERS notation is easy for a
+      human to read and understand, and straightforward for tools to process. The
+      rules are also designed to prevent the creation of empty or impossible version
+      ranges. These rules are:</p>
+    <ul>
+      <li><strong>Constraints</strong> shall be sorted by <strong>version</strong> order. The ordering of the
+        <strong>constraints</strong> segments is significant for validity: tools shall report
+        an error for invalid ordering.</li>
+      <li><strong>Versions</strong> are unique. Each version shall be unique within a
+        <strong>constraints</strong> instance, and can occur only once in any <strong>constraint</strong>,
+        regardless of the <strong>comparators</strong>. Tools shall report an error for
+        duplicated <strong>versions</strong>.</li>
+      <li>There can be only one asterisk in a <strong>constraints</strong> sequence: Asterisk
+        ('\*') shall occur only once and alone in a <strong>constraints</strong> instance.
+        An Asterisk constraint shall not be use with other <strong>constraints</strong> in a
+        <strong>constraints</strong> sequence.</li>
+    </ul>
+    <p>Starting from a de-duplicated and sorted list of <strong>constraints</strong>, the
+      following rules apply to the <strong>comparators</strong> of any two contiguous
+      <strong>constraints</strong> segments:</p>
+    <ul>
+      <li>A <strong>constraint</strong> using the '!=' <strong>comparator</strong> can be followed by a
+        <strong>constraint</strong> using a <strong>comparator</strong> (any of *null*, '!=', '>', '>=', '<',
+        '<=') or (no <strong>constraint</strong>).</li>
+      <li>Ignoring all <strong>constraints</strong> with the '!=' <strong>comparator</strong>, a *null*
+        (equality) <strong>constraint</strong> shall be followed only by a <strong>constraint</strong> with one
+        of: *null*, '>', or '>=' (or no <strong>constraint</strong>).</li>
+      <li>Ignoring all constraints with the '!=' <strong>comparator</strong> or the *null*
+        (equality) <strong>comparator</strong>, the sequence of <strong>constraints</strong> shall be an
+        alternation of Greater-than and Lesser-than <strong>comparators</strong>:</li>
+      <li>A <strong>constraint</strong> using '\<' or '\<=' shall be followed by one of '>' or
+        '>=' (or no <strong>constraint</strong>).</li>
+      <li>A <strong>constraint</strong> using '>' or '>=' shall be followed by one of '\<' or
+        <ul>
+          <li>A <strong>constraint</strong> using '\<' or '\<=' shall be followed by one of '>' or '>=' (or no <strong>constraint</strong>).</li>
+          <li>A <strong>constraint</strong> using '>' or '>=' shall be followed by one of '\<' or '\<=' (or no <strong>constraint</strong>).</li>
+        </ul>
+      </li>
+    </ul>
+    <p>Tools shall report an error for an invalid sequence of <strong>constraints</strong>
+      segments.</p>
+  </emu-clause>
 </emu-clause>
 
-<emu-annex id="sec-colophon">
+<emu-clause id="sec-vers-type-definition-schema">
+  <h1>VERS Type Definition Schema</h1>
+  <p>
+    The VERS Type Definition JSON Schema is the reference data model that is used
+    to define VERS <strong>types</strong> in a structured way. Each VERS <strong>type</strong> is specified
+    in a JSON document that matches this schema. These JSON documents are then
+    used to generate VERS <strong>type</strong> documentation and to support VERS tools and
+    libraries so that they can more easily build, parse, and validate PURLs by
+    <strong>type</strong> in a consistent and standardized manner across programming languages
+    and technology stacks.
+  </p>
+
+  <emu-clause id="sec-vers-type-definition-schema-json-schema">
+    <h1>JSON Schema</h1>
+    <p>
+      The VERS Type Definition Schema is formally specified by a Draft 2020-12 JSON
+      Schema. Each published version of this specification is accompanied by a
+      versioned meta-schema at a stable URI:
+    </p>
+    <p>
+      <code>https://packageurl.org/vers-schemas/vers-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code>
+    </p>
+    <p>
+      <strong>Location:</strong> /
+    </p>
+    <p>
+      <strong>Type:</strong> Object
+    </p>
+    <p>
+      Schema to specify a Version Range Specifier (VERS) type as a structured definition.
+    </p>
+    <emu-table>
+      <emu-caption>Properties for the root object</emu-caption>
+      <table>
+        <thead>
+        <tr>
+          <th><strong>Property</strong></th>
+          <th><strong>Type</strong></th>
+          <th><strong>Requirement</strong></th>
+          <th><strong>Description</strong></th>
+        </tr>
+        </thead>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The type string for this VERS type.</td>
+        </tr>
+        <tr>
+          <td>type_name</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The name for this VERS type.</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The description of this VERS type.</td>
+        </tr>
+        <tr>
+          <td>vers_examples</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Examples for valid VERS ranges for this VERS type.</td>
+        </tr>
+        <tr>
+          <td>native_and_vers_equivalent_examples</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>List of examples of valid, native version ranges mapped to their corresponding VERS syntax.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Note about this VERS type.</td>
+        </tr>
+        <tr>
+          <td>reference_urls</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>List of informational reference URLs about this VERS type, such as specifications or reference code.</td>
+        </tr>
+      </table>
+    </emu-table>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-vers-type">
+    <h1>VERS type</h1>
+    <p>
+      <strong>Location:</strong> /type
+    </p>
+    <p>
+      <strong>Property:</strong> type (Required)
+    </p>
+    <p>
+      <strong>Type:</strong> String
+    </p>
+    <p>
+      <strong>Pattern Constraint:</strong> ^[a-z][a-z0-9-\.]+$
+    </p>
+    <p>
+      The type string for this VERS type.
+    </p>
+    <emu-example caption="Maven">
+      <pre><code>maven</code></pre>
+    </emu-example>
+    <emu-example caption="Node Package Manager">
+      <pre><code>npm</code></pre>
+    </emu-example>
+    <emu-example caption="Python Package Index">
+      <pre><code>pypi</code></pre>
+    </emu-example>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-type-name">
+    <h1>Type name</h1>
+    <p>
+      <strong>Location:</strong> /type_name
+    </p>
+    <p>
+      <strong>Property:</strong> type_name (Required)
+    </p>
+    <p>
+      <strong>Type:</strong> String
+    </p>
+    <p>
+      The name for this VERS type.
+    </p>
+    <emu-example caption="Maven">
+      Apache Maven Dependency Version Requirement
+    </emu-example>
+    <emu-example caption="Node Package Manager">
+      npm version range
+    </emu-example>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-description">
+    <h1>Description</h1>
+    <p>
+      <strong>Property:</strong> description (Required)
+    </p>
+    <p>
+      <strong>Type:</strong> String
+    </p>
+    <p>
+      The description of this VERS type.
+    </p>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-vers-examples">
+    <h1>VERS examples</h1>
+    <p>
+      <strong>Location:</strong> /vers_examples
+    </p>
+    <p>
+      <strong>Property:</strong> vers_examples (Required)
+    </p>
+    <p>
+      <strong>Type:</strong> Array (of String)
+    </p>
+    <p>
+      <strong>Pattern Constraint:</strong> <code>^vers:[a-z][a-z0-9-\.]+/.*$</code>
+    </p>
+    <p>
+      Examples of valid VERS ranges for this VERS type.
+    </p>
+    <p>
+      <em>All items shall be unique.</em>
+    </p>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-native-range-and-vers-equivalent-examples">
+    <h1>Native range and VERS equivalent examples</h1>
+    <p>
+      <strong>Location:</strong> /native_range_and_vers_equivalent_example
+    </p>
+    <p>
+      <strong>Property:</strong> native_range_and_vers_equivalent_examples (Optional)
+    </p>
+    <p>
+      <strong>Type:</strong> Object
+    </p>
+    <p>
+      The definition of native and VERS range equivalents for a VERS type. This
+      information is optional for a VERS type.
+    </p>
+    <emu-table>
+      <emu-caption>Properties for the native_and_vers_equivalent_examples object</emu-caption>
+      <table>
+        <thead>
+        <tr>
+          <th><strong>Property</strong></th>
+          <th><strong>Type</strong></th>
+          <th><strong>Requirement</strong></th>
+          <th><strong>Description</strong></th>
+        </tr>
+        </thead>
+        <tr>
+          <td>native_range</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>Native range example for this VERS type.</td>
+        </tr>
+        <tr>
+          <td>vers</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>Corresponding VERS notation for this VERS type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Optional note about this example.</td>
+        </tr>
+        <tr>
+          <td>reference_url</td>
+          <td>URI as specified in RFC 3986</td>
+          <td>Optional</td>
+          <td>Optional reference URL for this native range example.</td>
+        </tr>
+      </table>
+    </emu-table>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-note">
+    <h1>Note</h1>
+    <p>
+      <strong>Location:</strong> /note
+    </p>
+    <p>
+      <strong>Property:</strong> note (Optional)
+    </p>
+    <p>
+      <strong>Type:</strong> String
+    </p>
+    <p>
+      Note about this VERS type.
+    </p>
+  </emu-clause>
+
+  <emu-clause id="sec-vers-type-definition-schema-reference-urls">
+    <h1>Reference URLs</h1>
+    <p>
+      <strong>Location:</strong> /reference_urls
+    </p>
+    <p>
+      <strong>Property:</strong> reference_urls (Optional)
+    </p>
+    <p>
+      <strong>Type:</strong> array (of String)
+    </p>
+    <p>
+      <strong>Format:</strong> URI as specified in <a href="https://www.ietf.org/rfc/rfc3986.html">RFC 3986</a>
+    </p>
+    <p>
+      Optional list of informational reference URLs about this VERS type. Each item of this array shall be a string.
+    </p>
+    <p>
+      <em>All items shall be unique.</em>
+    </p>
+  </emu-clause>
+</emu-clause>
+
+<emu-annex normative id="sec-schemas">
+  <h1>VERS Type Definition</h1>
+  <p>This Annex provides a copy of the current Version Range Specifier (VERS) Type
+    Definition Schema. The format is JSON Schema version Draft 2020-12.</p>
+  <p>The schema shown below is available in electronic form at: <a href="https://packageurl.org/vers-schemas/vers-type-definition.schema-1.0.json">https://packageurl.org/vers-schemas/vers-type-definition.schema-1.0.json</a></p>
+  <pre><code class="language-json">
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "$id": "https://packageurl.org/vers-schemas/vers-type-definition.schema-1.0.json",
+  "title": "Version Range Specifier (VERS) Type Definition",
+  "description": "Schema to define the structure of a VErsion Range Specifier (VERS) type.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$id",
+    "type",
+    "type_name",
+    "description",
+    "vers_examples"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "JSON schema",
+      "description": "URL of the JSON schema for VERS type definition.",
+      "const": "https://packageurl.org/schemas/vers-type-definition.schema-0.2.json",
+      "format": "uri"
+    },
+    "$id": {
+      "title": "VERS type definition id",
+      "description": "The unique identifier URI for this VERS type definition.",
+      "type": "string",
+      "pattern": "^https:\\/\\/packageurl\\.org/vers-types/[a-z0-9-]+-definition\\.json$"
+    },
+    "type": {
+      "title": "VERS type",
+      "description": "The type string for this VERS type.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-\\.]+$",
+      "examples": [
+        "semver",
+        "maven",
+        "pypi",
+        "npm"
+      ]
+    },
+    "type_name": {
+      "title": "Type name",
+      "description": "The name of this VERS type.",
+      "type": "string",
+      "examples": [
+        "Apache Maven Dependency Version Requirement",
+        "npm version range"
+      ]
+    },
+    "description": {
+      "title": "Description",
+      "description": "The description of this VERS type.",
+      "type": "string",
+      "examples": [
+        "Apache Maven dependency version requirement as defined in a Maven POM.",
+        "npm dependencies version range as defined in a package.json.",
+        "RubyGems version requirement restrictions using restriction operators."
+      ]
+    },
+    "vers_examples": {
+      "title": "VERS examples",
+      "description": "Examples of valid VERS notations for this VERS type.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^vers:[a-z][a-z0-9-\\.]+/.*$"
+      },
+      "examples": [
+        [
+          "vers:npm/1.223",
+          "vers:semver/<1.2.2|>2.0.0|=7.0.0"
+        ]
+      ]
+    },
+    "native_range_and_vers_equivalent_examples": {
+      "title": "Examples of native version ranges and their VERS equivalents.",
+      "description": "Optional list of examples of native version ranges mapped to their corresponding VERS syntax.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "native_range",
+          "vers"
+        ],
+        "properties": {
+          "native_range": {
+            "title": "Native range example",
+            "description": "Native range example for this VERS type.",
+            "type": "string"
+          },
+          "vers": {
+            "title": "Corresponding VERS notation",
+            "description": "Corresponding VERS notation for this VERS type.",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "description": "Optional note about this example.",
+            "type": "string"
+          },
+          "reference_url": {
+            "title": "Reference URL",
+            "description": "Optional reference URL for this native range example.",
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "note": {
+      "title": "Note",
+      "description": "Note about this VERS type.",
+      "type": "string"
+    },
+    "reference_urls": {
+      "title": "Reference URLs",
+      "description": "List of informational reference URLs about this VERS type, such as specifications or reference code.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "examples": [
+        "https://maven.apache.org/pom.html#dependency-version-requirement-specification",
+        "https://github.com/npm/node-semver",
+        "https://docs.npmjs.com/cli/v12/configuring-npm/package-json#dependencies",
+        "https://github.com/ruby/ruby/blob/d1c079751b80352d347452c8d134ffb177838adb/lib/rubygems/requirement.rb#L6"
+      ]
+    }
+  }
+}</code></pre>
+</emu-annex>
+
+<emu-annex id="sec-colophon" back-matter>
   <h1>Colophon</h1>
-  <p>This specification is authored on <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">GitHub</a> in a plaintext source format called <a href="https://github.com/tc39/ecmarkup">Ecmarkup</a>. Ecmarkup is an HTML and Markdown dialect that provides a framework and toolset for authoring ECMA specifications in plaintext and processing the specification into a full-featured HTML rendering that follows the editorial conventions for this document. Ecmarkup builds on and integrates a number of other formats and technologies including <a href="https://github.com/rbuckton/grammarkdown">Grammarkdown</a> for defining syntax and <a href="https://github.com/tc39/ecmarkdown">Ecmarkdown</a> for authoring algorithm steps. PDF renderings of this specification are produced by printing the HTML rendering to a PDF.</p>
+  <p>This Standard is authored on <a href="https://github.com/Ecma-TC54/ECMA-TODO-VERS">GitHub</a> in a plaintext source format called <a href="https://github.com/tc39/ecmarkup">Ecmarkup</a>. Ecmarkup is an HTML and Markdown dialect that provides a framework and toolset for authoring ECMA specifications in plaintext and processing the specification into a full-featured HTML rendering that follows the editorial conventions for this document. Ecmarkup builds on and integrates a number of other formats and technologies including <a href="https://github.com/rbuckton/grammarkdown">Grammarkdown</a> for defining syntax and <a href="https://github.com/tc39/ecmarkdown">Ecmarkdown</a> for authoring algorithm steps. PDF renderings of this Standard are produced using a print stylesheet which takes advantage of the CSS Paged Media specification and is converted using <a href="https://www.princexml.com/">PrinceXML</a>.</p>
   <p>We extend our gratitude to TC39 for their exceptional work in developing Ecmarkup, which has greatly facilitated TC54's successful adoption of this tool for the preparation and maintenance of our technical specifications.</p>
 </emu-annex>
