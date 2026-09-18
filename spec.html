@@ -593,7 +593,7 @@
           <li>the Not Equals character: '!' (exclamation mark, '!')</li>
           <li>the Greater Than character: '>' (greater than, '>')</li>
           <li>the Less Than character: '<' (less than, '<')</li>
-          <li>the Asterisk character: '*' (asterisk, '*')</li>
+          <li>the Asterisk character: '/*' (asterisk, '/*')</li>
         </ul>
         <p>A <strong>comparator</strong> shall be one of the following:</p>
         <ul>
@@ -613,7 +613,7 @@
           <li>'>=' is the Greater-or-equal <strong>comparator</strong>. This includes all versions
             greater than or equal to the provided version. For example '>=1.2.3'
             means greater than or equal to "1.2.3".</li>
-          <li>The special Asterisk '*' <strong>comparator</strong> matches any version. It shall be
+          <li>The special Asterisk '/*' <strong>comparator</strong> matches any version. It shall be
             used alone and exclusive of any other <strong>constraint</strong> and shall not be
             followed by a <strong>version</strong>. For example, 'vers:deb/\*' represents all
             versions of a Debian package. This includes past, current and possible
@@ -662,8 +662,8 @@
         regardless of the <strong>comparators</strong>. Tools shall report an error for
         duplicated <strong>versions</strong>.</li>
       <li>There can be only one asterisk in a <strong>constraints</strong> sequence: Asterisk
-        ('*') shall occur only once and alone in a <strong>constraints</strong> instance.
-        An Asterisk constraint shall not be use with other <strong>constraints</strong> in a
+        ('/*') shall occur only once and alone in a <strong>constraints</strong> instance.
+        An Asterisk constraint shall not be used with other <strong>constraints</strong> in a
         <strong>constraints</strong> sequence.</li>
     </ul>
     <p>Starting from a de-duplicated and sorted list of <strong>constraints</strong>, the
