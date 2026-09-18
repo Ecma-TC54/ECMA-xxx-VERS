@@ -679,14 +679,9 @@
       <li>Ignoring all constraints with the '!=' <strong>comparator</strong> or the *null*
         (equality) <strong>comparator</strong>, the sequence of <strong>constraints</strong> shall be an
         alternation of Greater-than and Lesser-than <strong>comparators</strong>:</li>
-      <li>A <strong>constraint</strong> using '\<' or '\<=' shall be followed by one of '>' or
+      <li>A <strong>constraint</strong> using '<' or '<=' shall be followed by one of '>' or
         '>=' (or no <strong>constraint</strong>).</li>
-      <li>A <strong>constraint</strong> using '>' or '>=' shall be followed by one of '\<' or
-        <ul>
-          <li>A <strong>constraint</strong> using '\<' or '\<=' shall be followed by one of '>' or '>=' (or no <strong>constraint</strong>).</li>
-          <li>A <strong>constraint</strong> using '>' or '>=' shall be followed by one of '\<' or '\<=' (or no <strong>constraint</strong>).</li>
-        </ul>
-      </li>
+      <li>A <strong>constraint</strong> using '>' or '>=' shall be followed by one of '<' or '<=' (or no <strong>constraint</strong>).
     </ul>
     <p>Tools shall report an error for an invalid sequence of <strong>constraints</strong>
       segments.</p>
