@@ -298,7 +298,7 @@
   <h1>Contributing to this specification</h1>
   <p>This specification is developed on GitHub with the help of the VERS community. There are a number of ways to contribute to the development of this specification:</p>
   <ul>
-    <li>GitHub Repository: <a href="https://github.com/Ecma-TC54/ECMA-TODO">https://github.com/Ecma-TC54/ECMA-TODO</a></li>
+    <li>GitHub Repository: <a href="https://github.com/Ecma-TC54/ECMA-TODO">https://github.com/Ecma-TC54/ECMA-xxx-VERS</a></li>
     <li>Issues: <a href="https://github.com/Ecma-TC54/ECMA-TODO/issues">All Issues</a>, <a href="https://github.com/Ecma-TC54/ECMA-TODO/issues/new">File a New Issue</a></li>
     <li>Pull Requests: <a href="https://github.com/Ecma-TC54/ECMA-TODO/pulls">All Pull Requests</a>, <a href="https://github.com/Ecma-TC54/ECMA-TODO/pulls/new">Create a New Pull Request</a></li>
     <li>
@@ -335,7 +335,7 @@
     impacted versions is an approach that may require frequent updates. A version
     range is a necessary, compact, and practical way to reference multiple
     versions rather than listing all versions.</p>
-  <p>VErsion Range Specifier (VERS) introduces a standard URI-based syntax to
+  <p>Version Range Specifier (VERS) introduces a standard URI-based syntax to
     define package version ranges and the semantics (algorithm or procedure) to
     interpret each version range notation. This standardization provides more
     accurate and consistent analysis of package version dependencies and the
@@ -374,11 +374,15 @@
     structure and meaning for the VERS constraints component. This Standard
     specifies the syntax for VERS and the schema for defining VERS types, but it
     does not include any specific VERS type definitions.</p>
+  <p>This edition of the Standard supports linear versioning where the software
+    versions do not branch to form a tree of versions. For tree-based versioning
+    with branches, a possible solution is to use multiple VERS until direct
+    support for tree use cases is implemented in a future version of the Standard.</p>
 </emu-clause>
 
 <emu-clause id="sec-conformance">
   <h1>Conformance</h1>
-  <p>A conforming implementation of Version Range Specifier (VERS) Standard shall
+  <p>A conforming implementation of the Version Range Specifier (VERS) Standard shall
     fully implement and support all elements defined within this Standard,
     including the syntax, components, and semantic requirements for constructing and
     interpreting valid VERS notations.</p>
@@ -395,7 +399,7 @@
     to normalisation and equivalence rules. Furthermore, implementations shall
     process URI encoding and decoding for VERS components according to the
     standards outlined in RFC 3986.</p>
-  <p>Invalid VERS notations that fail to conform to the specification shall be
+  <p>Invalid VERS notations that fail to conform to the Standard shall be
     identified and rejected by any conforming implementation. This guarantees the
     integrity and reliability of VERS notations in all supported contexts.</p>
   <p>A conforming implementation of VERS may extend its functionality by providing
@@ -493,6 +497,10 @@
     </table>
   </emu-table>
 
+  <p>This edition of the VERS specification only applies to linear versioning
+     use cases; it does not cover tree-based versioning use cases. To model
+     branching trees of versions, a possible solution is to use multiple VERS, one for each branch.</p>
+
   <emu-clause id="sec-vers-specification-vers-is-a-uri">
     <h1>A VERS is a URI scheme</h1>
     <p>A VERS is a valid URI scheme that conforms to URI definitions or
@@ -546,14 +554,14 @@
       </ul>
       <p>By convention a <strong>type</strong> should be the same as the PURL <strong>type</strong> for a given
         package or software ecosystem. It is, however, permissible to define a <strong>type</strong>
-        that does not match an existing PURL <strong>type</strong> such as a version scheme that
+        that does not match an existing PURL <strong>type</strong> such as a VERS **type** that
         applies to a single package or project or a general purpose version scheme
         like 'semver'.</p>
-      <p>This Standard includes the <i>VERS Type Definition Schema</i> but it does not
+      <p>This Standard includes the <emu-xref href="#sec-vers-type-definition-schema" title></emu-xref> but it does not
         include the set of current "registered" VERS type definition files (JSON
         format) because there are ongoing additions and changes to these files. The
         current "registered" VERS <strong>type</strong> definition files are located at:
-        https://www.packageurl.org/vers-types/. Registration refers to the Package-URL
+        <a href="https://www.packageurl.org/vers-types/">https://www.packageurl.org/vers-types/</a>. Registration refers to the Package-URL
         community process for adding a new VERS <strong>type</strong>.</p>
       <p>There are two rules related to the set of registered VERS <strong>type</strong> definitions
         for conforming tools to validate the VERS <strong>type</strong> component:</p>
@@ -701,6 +709,7 @@
     <strong>type</strong> in a consistent and standardized manner across programming languages
     and technology stacks.
   </p>
+</emu-clause>
 
   <emu-clause id="sec-vers-type-definition-schema-json-schema">
     <h1>JSON Schema</h1>
@@ -853,7 +862,7 @@
       <strong>Type:</strong> Array (of String)
     </p>
     <p>
-      <strong>Pattern Constraint:</strong> <code>^vers:[a-z][a-z0-9-\.]+/.*$</code>
+      <strong>Pattern Constraint:</strong> ^vers:[a-z][a-z0-9-\.]+/.*$
     </p>
     <p>
       Examples of valid VERS ranges for this VERS type.
