@@ -556,11 +556,12 @@
       </ul>
       <p>A `type` defines:</p>
       <ul>
-        <li>the specific notation and conventions used for `constraints` encoded according to this `type`,</li>
-        <li>how a `type`-specific range notation can be transformed into VERS `constraints`,</li>
-        <li>how two versions are compared to determine if a version is inside or outside a range,</li>
-        <li>how to compare two version strings using `comparators`,</li>
-        <li>the structure of a `version` string such as "1.2.3". For example, the "semver" specification for version numbers defines a version as composed primarily of three dot-separated numeric segments named "major", "minor" and "patch".</li>
+        <li>the specific notation and conventions used for `constraints` encoded according to this `type`;</li>
+        <li>how a `type`-specific range notation can be transformed into VERS `constraints`;</li>
+        <li>how two versions are compared to determine if a version is inside or outside a range;</li>
+        <li>how to compare two version strings using `comparators`;</li>
+        <li>the structure of a `version` string such as "1.2.3". For example, the "semver" specification for
+            version numbers defines a version as composed primarily of three dot-separated numeric segments named "major", "minor" and "patch".</li>
       </ul>
       <p>By convention a `type` should be the same as the PURL `type` for a given
         package or software ecosystem. It is, however, permissible to define a `type`
@@ -703,8 +704,7 @@
           </ul>
         </li>
     </ul>
-    <p>Tools shall report an error for an invalid sequence of `constraints`
-      segments.</p>
+    <p>Tools shall report an error for an invalid sequence of `constraints` segments.</p>
   </emu-clause>
 </emu-clause>
 <!-- 6 starts here -->
