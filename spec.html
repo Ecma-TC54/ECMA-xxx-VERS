@@ -558,7 +558,7 @@
         applies to a single package or project or a general purpose version scheme
         like 'semver'.</p>
       <p>This Standard includes the <emu-xref href="#sec-vers-type-definition-schema" title></emu-xref> but it does not
-        include the set of current "registered" VERS type definition files (JSON
+        include the set of current "registered" VERS `type` definition files (JSON
         format) because there are ongoing additions and changes to these files. The
         current "registered" VERS `type` definition files are located at:
         <a href="https://www.packageurl.org/vers-types/">https://www.packageurl.org/vers-types/</a>. Registration refers to the Package-URL
@@ -609,17 +609,17 @@
             'vers:npm/1.2.3` means that the `version` is equal to "1.2.3". If a
             `constraint` string starts with '=', tools shall report an error.</li>
           <li>'!=' is the Inequality `comparator`. This means that a version shall not
-            be equal to the provided version and it shall be excluded from the range.
-            For example: '!=1.2.3' means that version "1.2.3" is excluded.</li>
+            be equal to the provided `version` and it shall be excluded from the range.
+            For example: '!=1.2.3' means that `version` "1.2.3" is excluded.</li>
           <li>'<' is the Less-than `comparator`. This includes all versions less than
-            the provided version.</li>
+            the provided `version`.</li>
           <li>'<=': is the Less-or-equal `comparator`. This includes all versions less
-            than or equal to the provided version. For example '<=1.2.3' means
+            than or equal to the provided `version`. For example '<=1.2.3' means
             less than or equal to "1.2.3".</li>
           <li>'>' is the Greater-than `comparator`. This includes all versions greater
-            than the provided version.</li>
+            than the provided `version`.</li>
           <li>'>=' is the Greater-or-equal `comparator`. This includes all versions
-            greater than or equal to the provided version. For example '>=1.2.3'
+            greater than or equal to the provided `version`. For example '>=1.2.3'
             means greater than or equal to "1.2.3".</li>
           <li>The special Asterisk '\*' `comparator` matches any version. It shall be
             used alone and exclusive of any other `comparator` and shall not be
@@ -693,7 +693,7 @@
           </ul>
         </li>
     </ul>
-    <p>Tools shall report an error for an invalid sequence of `onstraints`
+    <p>Tools shall report an error for an invalid sequence of `constraints`
       segments.</p>
   </emu-clause>
 </emu-clause>
