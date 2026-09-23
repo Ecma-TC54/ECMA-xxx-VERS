@@ -344,9 +344,18 @@
     <a href="https://ecma-tc54.github.io/ECMA-427/">ECMA-427</a>.</p>
   <p>Challenges addressed by VERS:</p>
   <ul>
-    <li><strong>Ambiguity of package dependencies</strong>: With diverse version range notations across ecosystems, accurately and consistently identifying software package dependencies is a long-standing problem. VERS eliminates this ambiguity by creating a universal version range notation with a predictable structure.</li>
-    <li><strong>Ambiguity of package versions affected by a vulnerability</strong>: With diverse version range notations across ecosystems, accurately and consistently identifying software package versions affected by a vulnerability or bug is extremely difficult. VERS eliminates this ambiguity by creating a universal version range notation with a predictable structure.</li>
-    <li><strong>Tooling and Automation</strong>: By standardizing version range analysis, VERS simplifies tooling development, automation, and integration for tasks such as software composition analysis and software vulnerability management.</li>
+    <li><strong>Ambiguity of package dependencies</strong>: With diverse version
+      range notations across ecosystems, accurately and consistently identifying
+      software package dependencies is a long-standing problem. VERS eliminates
+      this ambiguity by creating a universal version range notation with a predictable structure.</li>
+    <li><strong>Ambiguity of package versions affected by a vulnerability</strong>:
+      With diverse version range notations across ecosystems, accurately and
+      consistently identifying software package versions affected by a vulnerability
+       or bug is extremely difficult. VERS eliminates this ambiguity by creating a
+       universal version range notation with a predictable structure.</li>
+    <li><strong>Tooling and Automation</strong>: By standardizing version range
+      analysis, VERS simplifies tooling development, automation, and integration
+      for tasks such as software composition analysis and software vulnerability management.</li>
   </ul>
   <p>As software supply chain security becomes a global priority, formalizing VERS
     as an international standard supports its adoption and consistent
@@ -359,7 +368,8 @@
     organizations and developers can rely on a common way to specify and interpret
     package version ranges for managing package dependency resolution and software
     vulnerability analysis and mitigation.</p>
-  <p class="adoption-info">This Ecma Standard was developed by Technical Committee 54 and was adopted by the General Assembly of December 2026.</p>
+  <p class="adoption-info">This Ecma Standard was developed by Technical Committee 54
+    and was adopted by the General Assembly of December 2026.</p>
 </emu-intro>
 
 <emu-clause id="sec-scope">
@@ -396,7 +406,7 @@
     defined in this Standard.</p>
   <p>Implementations shall ensure that equivalent VERS notations are consistently
     resolved to the same canonical representation. This includes strict adherence
-    to normalisation and equivalence rules. Furthermore, implementations shall
+    to normalization and equivalence rules. Furthermore, implementations shall
     process URI encoding and decoding for VERS components according to the
     standards outlined in RFC 3986.</p>
   <p>Invalid VERS notations that fail to conform to the Standard shall be
@@ -518,8 +528,8 @@
     <h1>Separator characters</h1>
     <p>This is how each of the separator characters is used:</p>
     <ul>
-      <li>':' (colon) is the separator between `scheme` and `type`,</li>
-      <li>'/' (slash) is the separator between `type` and `constraints`,</li>
+      <li>':' (colon) is the separator between `scheme` and `type`.</li>
+      <li>'/' (slash) is the separator between `type` and `constraints`.</li>
       <li>'|' (pipe) is the separator between segments of `constraints`.</li>
     </ul>
   </emu-clause>
