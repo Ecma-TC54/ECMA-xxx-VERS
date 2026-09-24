@@ -423,6 +423,11 @@
     extensions explicitly identified in the specification shall not be
     implemented. Furthermore, behaviours that compromise the interoperability of
     VERS across tools, platforms, or ecosystems are strictly disallowed.</p>
+  <p>The verbal forms in this Standard follow ISO/IEC Directives, Part 2: shall
+     and shall not indicate requirements; should and should not indicate recommendations;
+     may and need not indicate permission; and can and cannot indicate possibility or
+     capability. The verbal form must is used only for external constraints and does not
+     express a requirement of this Standard.</p>
 </emu-clause>
 
 <emu-clause id="sec-normative-references">
@@ -557,7 +562,7 @@
       <p>A `type` defines:</p>
       <ul>
         <li>the specific notation and conventions used for `constraints` encoded according to this `type`;</li>
-        <li>how a `type`-specific range notation can be transformed into VERS `constraints`;</li>
+        <li>how a `type`-specific range notation shall be transformed into VERS `constraints`;</li>
         <li>how two versions are compared to determine if a version is inside or outside a range;</li>
         <li>how to compare two version strings using `comparators`;</li>
         <li>the structure of a `version` string such as "1.2.3". For example, the "semver" specification for
@@ -676,10 +681,10 @@
         `constraints` segments is significant for validity: tools shall report
         an error for invalid ordering.</li>
       <li>`Versions` are unique. Each version shall be unique within a
-        `constraints` instance, and can occur only once in any `constraint`,
+        `constraints` instance, and shall occur only once in any `constraint`,
         regardless of the `comparators`. Tools shall report an error for
         duplicated `versions`.</li>
-      <li>There can be only one asterisk in a `constraints` sequence: Asterisk
+      <li>There shall be only one asterisk in a `constraints` sequence: Asterisk
         ('\*') shall occur only once and alone in a `constraints` instance.
         An Asterisk constraint shall not be used with other `constraints` in a
         `Constraints` sequence.</li>
@@ -688,7 +693,7 @@
       following rules apply to the `comparators` of any two contiguous
       `constraints` segments:</p>
     <ul>
-      <li>A `constraint` using the '!=' `comparator` can be followed by a
+      <li>A `constraint` using the '!=' `comparator` shall be followed by a
         `constraint` using a `comparator` (any of *null*, '!=', '>', '>=', '<',
         '<=') or (no `constraint`).</li>
       <li>Ignoring all `constraints` with the '!=' `comparator`, a *null*
