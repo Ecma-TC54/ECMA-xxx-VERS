@@ -541,7 +541,7 @@
       <h1>Scheme</h1>
       <ul>
         <li>The `scheme` is a constant with the value "vers".</li>
-        <li>The `scheme<`shall be followed by an unencoded colon ':'.</li>
+        <li>The `scheme` shall be followed by an unencoded colon ':'.</li>
       </ul>
     </emu-clause>
 
@@ -581,7 +581,7 @@
           not conform to all of the rules for the corresponding VERS `type`
           definition.</li>
         <li>If a VERS `type` is not registered, then the `type` component is valid
-          if it conforms to the rules stated in the <`type` component rules in this
+          if it conforms to the rules stated in the `type` component rules in this
           Clause of the Standard. In this case tools should report a warning that the
           VERS `type` is not registered.</li>
       </ul>
@@ -617,8 +617,7 @@
         <p>A `comparator` shall be one of the following:</p>
         <ul>
           <li>*null* is the Equality `comparator` and the default. For example,
-            'vers:npm/1.2.3` means that the `version` is equal to "1.2.3". If a
-            `constraint` string starts with '=', tools shall report an error.</li>
+            'vers:npm/1.2.3` means that the `version` is equal to "1.2.3". If a `constraint` string starts with '=', tools shall report an error.</li>
           <li>'!=' is the Inequality `comparator`. This means that a version shall not
             be equal to the provided `version` and it shall be excluded from the range.
             For example: '!=1.2.3' means that `version` "1.2.3" is excluded.</li>
@@ -676,7 +675,7 @@
       <li> `Constraints` shall be sorted by `version` order. The ordering of the
         `constraints`segments is significant for validity: tools shall report
         an error for invalid ordering.</li>
-      <li><`Versions`are unique. Each version shall be unique within a
+      <li>`Versions`are unique. Each version shall be unique within a
         `constraints` instance, and can occur only once in any `constraint`,
         regardless of the `comparators`. Tools shall report an error for
         duplicated `versions`.</li>
