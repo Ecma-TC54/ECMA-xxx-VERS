@@ -1,295 +1,50 @@
 <!DOCTYPE html>
 <html lang="en-GB-oxendict">
-<meta charset="utf-8">
-<link rel="icon" href="img/favicon.ico">
-<style>
-  .hljs {
-    color: #24292e !important;
-    background: #ffffff !important;
-  }
+<head>
+  <title>Version Range Specifier (VERS) specification</title>
+  <meta charset="utf-8">
+  <link rel="icon" href="img/favicon.ico">
 
-  .hljs-doctag,
-  .hljs-keyword,
-  .hljs-meta .hljs-keyword,
-  .hljs-template-tag,
-  .hljs-template-variable,
-  .hljs-type,
-  .hljs-variable.language_ {
-    /* prettylights-syntax-keyword */
-    color: #d73a49 !important;
-  }
-
-  .hljs-title,
-  .hljs-title.class_,
-  .hljs-title.class_.inherited__,
-  .hljs-title.function_ {
-    /* prettylights-syntax-entity */
-    color: #6f42c1 !important;
-  }
-
-  .hljs-attr,
-  .hljs-attribute,
-  .hljs-literal,
-  .hljs-meta,
-  .hljs-number,
-  .hljs-operator,
-  .hljs-variable,
-  .hljs-selector-attr,
-  .hljs-selector-class,
-  .hljs-selector-id {
-    /* prettylights-syntax-constant */
-    color: #005cc5 !important;
-  }
-
-  .hljs-regexp,
-  .hljs-string,
-  .hljs-meta .hljs-string {
-    /* prettylights-syntax-string */
-    color: #032f62 !important;
-  }
-
-  .hljs-built_in,
-  .hljs-symbol {
-    /* prettylights-syntax-variable */
-    color: #e36209 !important;
-  }
-
-  .hljs-comment,
-  .hljs-code,
-  .hljs-formula {
-    /* prettylights-syntax-comment */
-    color: #6a737d !important;
-  }
-
-  .hljs-name,
-  .hljs-quote,
-  .hljs-selector-tag,
-  .hljs-selector-pseudo {
-    /* prettylights-syntax-entity-tag */
-    color: #22863a !important;
-  }
-
-  .hljs-subst {
-    /* prettylights-syntax-storage-modifier-import */
-    color: #24292e !important;
-  }
-
-  .hljs-section {
-    /* prettylights-syntax-markup-heading */
-    color: #005cc5 !important;
-    font-weight: bold !important;
-  }
-
-  .hljs-bullet {
-    /* prettylights-syntax-markup-list */
-    color: #735c0f !important;
-  }
-
-  .hljs-emphasis {
-    /* prettylights-syntax-markup-italic */
-    color: #24292e !important;
-    font-style: italic !important;
-  }
-
-  .hljs-strong {
-    /* prettylights-syntax-markup-bold */
-    color: #24292e !important;
-    font-weight: bold !important;
-  }
-
-  .hljs-addition {
-    /* prettylights-syntax-markup-inserted */
-    color: #22863a !important;
-    background-color: #f0fff4 !important;
-  }
-
-  .hljs-deletion {
-    /* prettylights-syntax-markup-deleted */
-    color: #b31d28 !important;
-    background-color: #ffeef0 !important;
-  }
-
-  .hljs-char.escape_,
-  .hljs-link,
-  .hljs-params,
-  .hljs-property,
-  .hljs-punctuation,
-  .hljs-tag {
-    /* purposely ignored */
-  }
-
-  #metadata-block {
-    margin: 4em 0;
-    padding: 10px;
-    border: 1px solid #ee8421;
-  }
-  #metadata-block h1 {
-    font-size: 1.5em;
-    margin-top: 0;
-  }
-  #metadata-block > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  #ecma-logo {
-    background: var(--figure-background);
-    width: 500px;
-  }
-
-  pre:has(> code) {
-    margin-block: 0;
-  }
-
-  pre code {
-    white-space: pre-wrap;
-    word-break: break-word;
-    padding: 0 !important;
-  }
-
-  code.pattern {
-    font-weight: normal !important;
-  }
-
-  @page {
-    @prince-overlay {
-      color: rgba(0,0,0,0.15);
-      content: "DRAFT";
-      font-family: Arial;
-      font-weight: bolder;
-      font-size: 200pt;
-      transform: rotate(-60deg);
+  <style>
+    :is(#sec-normative-references, #sec-bibliography) dfn {
+      font-style: inherit;
     }
-  }
-
-  .unicode-property-table {
-    table-layout: fixed;
-    width: 100%;
-    font-size: 80%;
-  }
-
-  .corner-cell {
-    position: relative;
-    height: 2lh;
-  }
-  .corner-cell .slash {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom left, transparent calc(50% - 1px), gray, transparent calc(50% + 1px));
-  }
-  .corner-cell > .column {
-    position: absolute;
-    bottom: 0.4em;
-    left: 1em;
-  }
-  .corner-cell > .row {
-    position: absolute;
-    top: 0.4em;
-    right: 1em;
-  }
-
-  @supports (color-scheme: dark) {
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --foreground-color: #111;
-        --background-color: #fff;
-
-        --link-foreground-color: #206ca7;
-        --link-hover-foreground-color: #239dee;
-
-        --user-code-foreground-color: brown;
-
-        --var-foreground-color: #218379;
-
-        --referenced0-background-color: #ffff6c;
-        --referenced1-background-color: #ffa4a8;
-        --referenced2-background-color: #96e885;
-        --referenced3-background-color: #3eeed2;
-        --referenced4-background-color: #eacfb6;
-        --referenced5-background-color: #82ddff;
-        --referenced6-background-color: #ffbcf2;
-
-        --note-background-color: #e9fbe9;
-        --note-border-color: #52e052;
-        --note-editor-border-color: #faa;
-
-        --nt-link-foreground-color: #333;
-
-        --production-rhs-background-color: #f0f0f0;
-        --production-rhs-border-color: #888;
-
-        --params-foreground-color: #2aa198;
-        --opt-foreground-color: #b58900;
-
-        --title-foreground-color: #f60;
-
-        --caption-foreground-color: #555555;
-
-        --table-header-background-color: #eeeeee;
-
-        --highlight-background-color-start: rgba(249, 241, 172, 1);
-        --highlight-background-color-end: rgba(249, 241, 172, 0);
-
-        --highlight-background-color: rgba(249, 241, 172, 1);
-
-        --ins-background-color: #e0f8e0;
-        --ins-border-color: #396;
-
-        --del-background-color: #fee;
-
-        --control-foreground-color: #eee;
-        --control-dimmed-foreground-color: #666;
-        --control-background-color: #ddd;
-        --control-dark-background-color: #ccc;
-        --control-border-color: #aaa;
-        --control-light-border-color: #bbb;
-        --control-shortcut-background-color: #eee;
-        --control-shortcut-shadow-color: #ccc;
-        --control-dialog-fade-color: rgba(255, 255, 255, 0.6);
-
-        --control-link-foreground-color: #1567a2;
-
-        --control-input-background-color: #bbb;
-        --control-input-border-color: #999;
-
-        --menu-header-background-color: #bbb;
-        --menu-revealed-link-foreground-color: #206ca7;
-        --menu-unpin-hover-foreground-color: #bb1212;
-
-        --menu-trace-list-foreground-color: #999;
-        --menu-trace-list-background-color: #222;
-
-        --toolbox-tail-background-outside-color: rgba(0, 0, 0, 0);
-        --toolbox-tail-border-outside-color: rgba(204, 204, 204, 0);
-
-        --normative-optional-background-color: #ffeedd;
-        --normative-optional-border-color: #ff6600;
-
-        --attributes-tag-foreground-color: #884400;
-
-        --figure-background: #fff;
-      }
+  </style>
+  <style media="print">
+    a[data-print-href]::after {
+      content: none;
     }
-  }
-</style>
-<style media="print">
-  a[data-print-href]::after {
-    content: none;
-  }
-</style>
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    pre code {
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding: 0 !important;
+    }
+
+    #sec-schemas > p:has( + pre) {
+      break-after: avoid;
+    }
+
+    #sec-schemas pre {
+      break-inside: auto;
+    }
+  </style>
+</head>
+<body>
 <pre class="metadata">
   title: Version Range Specifier (VERS) specification
-  date: 2026-12-06
+  date: 2026-12-08
   shortname: ECMA-xxx
   status: draft
   location: https://tc54.org/vers/
-  markEffects: true
   version: 1<sup>st</sup> Edition
+  committee: 54
 </pre>
+
 <p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
 <div id="metadata-block">
   <h1>About this specification</h1>
@@ -331,7 +86,7 @@
     vulnerable package version ranges means that these ranges may be ambiguous
     or hard to compute and may be replaced by complete enumerations of all
     impacted versions. Expressing and resolving a version range is often a complex
-    and error prone task because of the ambiguity and the use of enumerations of
+    and error-prone task because of the ambiguity and the use of enumerations of
     impacted versions is an approach that may require frequent updates. A version
     range is a necessary, compact, and practical way to reference multiple
     versions rather than listing all versions.</p>
@@ -340,8 +95,8 @@
     interpret each version range notation. This standardization provides more
     accurate and consistent analysis of package version dependencies and the
     impact of known vulnerabilities or bugs on a package. VERS was developed in
-    concert with the Package-URL (PURL) specification standardized with
-    <a href="https://ecma-tc54.github.io/ECMA-427/">ECMA-427</a>.</p>
+    concert with the Package-URL (PURL) specification standardized as ECMA-427.
+  </p>
   <p>Challenges addressed by VERS:</p>
   <ul>
     <li><strong>Ambiguity of package dependencies</strong>: With diverse version
@@ -368,8 +123,6 @@
     organizations and developers can rely on a common way to specify and interpret
     package version ranges for managing package dependency resolution and software
     vulnerability analysis and mitigation.</p>
-  <p class="adoption-info">This Ecma Standard was developed by Technical Committee 54
-    and was adopted by the General Assembly of December 2026.</p>
 </emu-intro>
 
 <emu-clause id="sec-scope">
@@ -377,17 +130,17 @@
   <p>This Standard defines the Version Range Specifier (VERS) syntax for specifying
     a software version range notation as a compact alternative to enumerating a
     list of software versions. The primary use cases for VERS are identifying
-    software package versions that are impacted by a vulnerability and analyzing
+    software package versions that are impacted by a vulnerability and analysing
     software package version dependencies.</p>
   <p>A VERS notation is a valid URI composed of two components to identify a
     software package. The VERS type component defines the ecosystem-specific
     structure and meaning for the VERS constraints component. This Standard
     specifies the syntax for VERS and the schema for defining VERS types, but it
     does not include any specific VERS type definitions.</p>
-  <p>This edition of the Standard supports linear versioning where the software
+  <p>This edition of ECMA-XXX supports linear versioning where the software
     versions do not branch to form a tree of versions. For tree-based versioning
     with branches, a possible solution is to use multiple VERS until direct
-    support for tree use cases is implemented in a future version of the Standard.</p>
+    support for tree use cases is implemented in a future version of this Standard.</p>
 </emu-clause>
 
 <emu-clause id="sec-conformance">
@@ -407,9 +160,8 @@
   <p>Implementations shall ensure that equivalent VERS notations are consistently
     resolved to the same canonical representation. This includes strict adherence
     to normalization and equivalence rules. Furthermore, implementations shall
-    process URI encoding and decoding for VERS components according to the
-    standards outlined in RFC 3986.</p>
-  <p>Invalid VERS notations that fail to conform to the Standard shall be
+    process URI encoding and decoding for VERS components according to RFC 3986.</p>
+  <p>Invalid VERS notations that fail to conform to this Standard shall be
     identified and rejected by any conforming implementation. This guarantees the
     integrity and reliability of VERS notations in all supported contexts.</p>
   <p>A conforming implementation of VERS may extend its functionality by providing
@@ -417,7 +169,7 @@
     these extensions do not violate the core specification. Additionally,
     implementations may offer auxiliary tools or features, such as utilities for
     constructing or validating VERS notations, provided they align with the
-    Standard's requirements.</p>
+    requirements of this Standard.</p>
   <p>A conforming implementation shall not redefine or alter the core syntax,
     components, or semantics defined by this Standard. Any prohibited
     extensions explicitly identified in the specification shall not be
@@ -437,23 +189,34 @@
     references, only the edition cited applies. For undated references, the
     latest edition of the referenced document (including any amendments) applies.</p>
   <p>
-    RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
+    <dfn>RFC 3986</dfn>, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
     <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a>
   </p>
   <p>
-    The Unicode Standard<br>
+    The
+    <emu-not-ref>Unicode</emu-not-ref>
+    Consortium, The <dfn id="dfn-unicode">Unicode</dfn> Standard<br>
     <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
+  </p>
+  <p>
+    <dfn id="json-schema" variants="JSON Schema">JSON Schema version 2020-12</dfn>, <cite>
+    <emu-not-ref>JSON Schema</emu-not-ref>
+    : A Media Type for Describing JSON Documents.</cite><br>
+    <a href="https://json-schema.org/draft/2020-12/json-schema-core">https://json-schema.org/draft/2020-12/json-schema-core</a>
   </p>
 </emu-clause>
 
 <emu-clause id="sec-overview">
-  <h1>Overview informative</h1>
-  <p>This Clause contains a non-normative overview of the VERS specification.</p>
+  <h1>Overview</h1>
+  <p>This overview is non-normative and serves to provide context for the
+    intent, purpose, and audience for the VERS specification. For detailed
+    requirements and conformance criteria, refer to the normative clauses of
+    this Standard.</p>
   <p>The Version Range Specifier (VERS) Standard defines a lightweight and
     compact URI-based syntax for specifying software package version ranges. VERS
     provides a practical alternative to enumerating all versions for common use
     cases like identifying package versions impacted by a vulnerability or
-    analyzing package dependencies. VERS also defines the semantics (algorithm or
+    analysing package dependencies. VERS also defines the semantics (algorithm or
     procedure) to interpret each VERS notation.</p>
   <p>This Standard focuses on the core aspects of VERS, including its syntax,
     required components, optional attributes, and conformance requirements. VERS
@@ -465,20 +228,14 @@
     VERS, it is complemented by various ecosystem-specific guidance documents,
     examples, and related standards. These resources provide additional context
     and practical insights for leveraging VERS effectively.</p>
-  <p>This overview is non-normative and serves to provide context for the
-    intent, purpose, and audience for the Standard. For detailed requirements and
-    conformance criteria, refer to the normative clauses of this Standard.</p>
 </emu-clause>
 
 <emu-clause id="sec-vers-specification">
   <h1>VERS Specification</h1>
   <p>VERS stands for "Version Range Specifier". A VERS is an ASCII URI string
     composed of three components:</p>
-  <pre>
-    <code lang="plaintext">
-      scheme:type/constraints
-    </code>
-  </pre>
+
+  <pre><code lang="plaintext">scheme:type/constraints</code></pre>
 
   <p>When there are multiple constraints, they are separated by an unencoded pipe '|'.</p>
   <p>Components are separated by a specific character for unambiguous parsing.</p>
@@ -519,7 +276,7 @@
   <emu-clause id="sec-vers-specification-vers-is-a-uri">
     <h1>A VERS is a URI scheme</h1>
     <p>A VERS is a valid URI scheme that conforms to URI definitions or
-      specifications at: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>.</p>
+      specifications in RFC 3986.</p>
 
     <emu-example caption="Node Package Manager">
       <pre><code>vers:npm/1.2.3|>=2.0.0|<5.0.0</code></pre>
@@ -556,7 +313,7 @@
         <li>The `type` shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
         <li>The `type` shall start with an ASCII letter.</li>
         <li>The `type` shall not be percent-encoded.</li>
-        <li>The `type` is case insensitive and lowercase.</li>
+        <li>The `type` is case-insensitive and lowercase.</li>
         <li>The `type` shall be followed by a slash '/'.</li>
       </ul>
       <p>A `type` defines:</p>
@@ -576,9 +333,10 @@
       <p>This Standard includes the <emu-xref href="#sec-vers-type-definition-schema" title></emu-xref> but it does not
         include the set of current "registered" VERS `type` definition files (JSON
         format) because there are ongoing additions and changes to these files. The
-        current "registered" VERS `type` definition files are located at:
-        <a href="https://www.packageurl.org/vers-types/">https://www.packageurl.org/vers-types/</a>. Registration refers to the Package-URL
-        community process for adding a new VERS `type`.</p>
+        set of current "registered" VERS `type` definition files are located at:
+        <a href="https://www.packageurl.org/docs/vers/vers-types">https://www.packageurl.org/docs/vers/vers-types</a>.
+        Registration refers to the Package-URL
+        <a href="https://www.packageurl.org/docs/purl/purl-types#how-to-propose-a-new-purl-type">community process</a> for adding a new VERS `type`.</p>
       <p>There are two rules related to the set of registered VERS `type` definitions
         for conforming tools to validate the VERS `type` component:</p>
       <ul>
@@ -587,7 +345,7 @@
           definition.</li>
         <li>If a VERS `type` is not registered, then the `type` component is valid
           if it conforms to the rules stated in the `type` component rules in this
-          Clause of the Standard. In this case tools should report a warning that the
+          Clause. In this case tools should report a warning that the
           VERS `type` is not registered.</li>
       </ul>
     </emu-clause>
@@ -622,7 +380,7 @@
         <p>A `comparator` shall be one of the following:</p>
         <ul>
           <li>*null* is the Equality `comparator` and the default. For example,
-            'vers:npm/1.2.3` means that the `version` is equal to "1.2.3". If a `constraint` string starts with '=', tools shall report an error.</li>
+            'vers:npm/1.2.3' means that the `version` is equal to "1.2.3". If a `constraint` string starts with '=', tools shall report an error.</li>
           <li>'!=' is the Inequality `comparator`. This means that a version shall not
             be equal to the provided `version` and it shall be excluded from the range.
             For example: '!=1.2.3' means that `version` "1.2.3" is excluded.</li>
@@ -701,7 +459,7 @@
         of: *null*, '>', or '>=' (or no `constraint`).</li>
       <li>Ignoring all constraints with the '!=' `comparator` or the *null*
         (equality) `comparator`, the sequence of `constraints` shall be an
-        alternation of Greater-than and Lesser-than `comparators`:</li>
+        alternation of Greater-than and Lesser-than `comparators`:
           <ul>
             <li>A `constraint` using '<' or '<=' shall be followed by one of '>' or '>=' (or no `constraint`).</li>
             <li>A `constraint` using '>' or '>=' shall be followed by one of '<' or '<=' (or no `constraint`).</li>
@@ -727,13 +485,10 @@
   <emu-clause id="sec-vers-type-definition-schema-json-schema">
     <h1>JSON Schema</h1>
     <p>
-      The VERS Type Definition Schema is formally specified by a Draft 2020-12 JSON
-      Schema. Each published version of this specification is accompanied by a
+      The VERS Type Definition Schema is formally specified by JSON Schema version 2020-12. Each published version of this specification is accompanied by a
       versioned meta-schema at a stable URI:
     </p>
-    <p>
-      <code>https://packageurl.org/vers-schemas/vers-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code>
-    </p>
+    <p><code>https://packageurl.org/vers-schemas/vers-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code></p>
     <p>
       <strong>Location:</strong> /
     </p>
@@ -969,9 +724,7 @@
     <p>
       <strong>Type:</strong> array (of String)
     </p>
-    <p>
-      <strong>Format:</strong> URI as specified in <a href="https://www.ietf.org/rfc/rfc3986.html">RFC 3986</a>
-    </p>
+    <p><strong>Format:</strong> URI as specified in RFC 3986</p>
     <p>
       Optional list of informational reference URLs about this VERS type. Each item of this array shall be a string.
     </p>
@@ -984,10 +737,9 @@
 <emu-annex normative id="sec-schemas">
   <h1>VERS Type Definition</h1>
   <p>This Annex provides a copy of the current Version Range Specifier (VERS) Type
-    Definition Schema. The format is JSON Schema version Draft 2020-12.</p>
+    Definition Schema. The format is JSON Schema version 2020-12.</p>
   <p>The schema shown below is available in electronic form at: <a href="https://packageurl.org/vers-schemas/vers-type-definition.schema-1.0.json">https://packageurl.org/vers-schemas/vers-type-definition.schema-1.0.json</a></p>
-  <pre><code class="language-json">
-{
+  <pre><code class="language-json">{
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "$id": "https://packageurl.org/vers-schemas/vers-type-definition.schema-1.0.json",
   "title": "Version Range Specifier (VERS) Type Definition",
@@ -1130,16 +882,20 @@
   <h1>Bibliography</h1>
   <ul>
     <li>
-      ECMA-404, <cite>The JSON data interchange syntax</cite><br>
+      <dfn>ECMA-404</dfn>, <cite>The JSON data interchange syntax</cite><br>
       <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-404/">https://www.ecma-international.org/publications-and-standards/standards/ecma-404/</a>
     </li>
     <li>
-      ECMA-427 <cite>Package-URL (PURL) specification</cite><br>
+      <dfn>ECMA-427</dfn> <cite>Package-URL (PURL) specification</cite><br>
       <a href="https://github.com/Ecma-TC54/ECMA-427">https://github.com/Ecma-TC54/ECMA-427</a>
     </li>
     <li>
-      IETF Draft, March 2018, <cite>JSON Schema Validation: A Vocabulary for Structural Validation of JSON (Draft-07)</cite><br>
-      <a href="https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01">https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01</a>
+      VERS types<br />
+      <a href="https://www.packageurl.org/docs/vers/vers-types">https://www.packageurl.org/docs/vers/vers-types</a>.
+    </li>
+    <li>
+      Package-URL, how to propose a new type<br>
+      <a href="https://www.packageurl.org/docs/purl/purl-types#how-to-propose-a-new-purl-type">https://www.packageurl.org/docs/purl/purl-types#how-to-propose-a-new-purl-type</a>
     </li>
     <li>
       Wikipedia, <cite>Uniform Resource Identifier Syntax</cite><br>
@@ -1154,6 +910,8 @@
 
 <emu-annex id="sec-colophon" back-matter>
   <h1>Colophon</h1>
-  <p>This Standard is authored on <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">GitHub</a> in a plaintext source format called <a href="https://github.com/tc39/ecmarkup">Ecmarkup</a>. Ecmarkup is an HTML and Markdown dialect that provides a framework and toolset for authoring ECMA specifications in plaintext and processing the specification into a full-featured HTML rendering that follows the editorial conventions for this document. Ecmarkup builds on and integrates a number of other formats and technologies including <a href="https://github.com/rbuckton/grammarkdown">Grammarkdown</a> for defining syntax and <a href="https://github.com/tc39/ecmarkdown">Ecmarkdown</a> for authoring algorithm steps. PDF renderings of this Standard are produced using a print stylesheet which takes advantage of the CSS Paged Media specification and is converted using <a href="https://www.princexml.com/">PrinceXML</a>.</p>
+  <p>This Standard is authored on <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">GitHub</a> in a plaintext source format called <a href="https://github.com/tc39/ecmarkup">Ecmarkup</a>. Ecmarkup is an HTML and Markdown dialect that provides a framework and toolset for authoring Ecma specifications in plaintext and processing the specification into a full-featured HTML rendering that follows the editorial conventions for this document. Ecmarkup builds on and integrates a number of other formats and technologies including <a href="https://github.com/rbuckton/grammarkdown">Grammarkdown</a> for defining syntax and <a href="https://github.com/tc39/ecmarkdown">Ecmarkdown</a> for authoring algorithm steps. PDF renderings of this Standard are produced using a print stylesheet which takes advantage of the CSS Paged Media specification and is converted using <a href="https://www.princexml.com/">PrinceXML</a>.</p>
   <p>We extend our gratitude to TC39 for their exceptional work in developing Ecmarkup, which has greatly facilitated TC54's successful adoption of this tool for the preparation and maintenance of our technical specifications.</p>
 </emu-annex>
+</body>
+</html>
