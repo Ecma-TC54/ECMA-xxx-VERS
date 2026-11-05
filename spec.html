@@ -130,7 +130,7 @@
   <p>This Standard defines the Version Range Specifier (VERS) syntax for specifying
     a software version range notation as a compact alternative to enumerating a
     list of software versions. The primary use cases for VERS are identifying
-    software package versions that are impacted by a vulnerability and analysing
+    software package versions that are impacted by a vulnerability and analyzing
     software package version dependencies.</p>
   <p>A VERS notation is a valid URI composed of two components to identify a
     software package. The VERS type component defines the ecosystem-specific
@@ -216,7 +216,7 @@
     compact URI-based syntax for specifying software package version ranges. VERS
     provides a practical alternative to enumerating all versions for common use
     cases like identifying package versions impacted by a vulnerability or
-    analysing package dependencies. VERS also defines the semantics (algorithm or
+    analyzing package dependencies. VERS also defines the semantics (algorithm or
     procedure) to interpret each VERS notation.</p>
   <p>This Standard focuses on the core aspects of VERS, including its syntax,
     required components, optional attributes, and conformance requirements. VERS
@@ -302,7 +302,7 @@
     <emu-clause id="sec-vers-specification-rules-scheme">
       <h1>Scheme</h1>
       <ul>
-        <li>The `scheme` is a constant with the value "vers".</li>
+        <li>The `scheme` is a constant with the value 'vers'.</li>
         <li>The `scheme` shall be followed by an unencoded colon ':'.</li>
       </ul>
     </emu-clause>
@@ -322,8 +322,8 @@
         <li>how a `type`-specific range notation shall be transformed into VERS `constraints`;</li>
         <li>how two versions are compared to determine if a version is inside or outside a range;</li>
         <li>how to compare two version strings using `comparators`;</li>
-        <li>the structure of a `version` string such as "1.2.3". For example, the "semver" specification for
-            version numbers defines a version as composed primarily of three dot-separated numeric segments named "major", "minor" and "patch".</li>
+        <li>the structure of a `version` string such as '1.2.3'. For example, the SemVer specification for
+            version numbers defines a version as composed primarily of three dot-separated numeric segments named major, minor and patch.</li>
       </ul>
       <p>By convention a `type` should be the same as the PURL `type` for a given
         package or software ecosystem. It is, however, permissible to define a `type`
@@ -361,7 +361,7 @@
         <li>A `comparator` always precedes the `version` with no characters allowed
           between the `comparator` and the `version`.</li>
         <li>Multiple `constraints` segments shall be separated by an unencoded
-          pipe '|'. The pipe "|" has no special meaning other than being a separator.</li>
+          pipe '|'. The pipe '|' has no special meaning other than being a separator.</li>
         <li>There is no limit on the number of `constraints` segments.</li>
       </ul>
       <p>The sequence of `constraints` represents distinct intervals in the version
@@ -380,20 +380,20 @@
         <p>A `comparator` shall be one of the following:</p>
         <ul>
           <li>*null* is the Equality `comparator` and the default. For example,
-            'vers:npm/1.2.3' means that the `version` is equal to "1.2.3". If a `constraint` string starts with '=', tools shall report an error.</li>
+            'vers:npm/1.2.3' means that the `version` is equal to '1.2.3'. If a `constraint` string starts with '=', tools shall report an error.</li>
           <li>'!=' is the Inequality `comparator`. This means that a version shall not
             be equal to the provided `version` and it shall be excluded from the range.
-            For example: '!=1.2.3' means that `version` "1.2.3" is excluded.</li>
+            For example: '!=1.2.3' means that `version` '1.2.3' is excluded.</li>
           <li>'<' is the Less-than `comparator`. This includes all versions less than
             the provided `version`.</li>
           <li>'<=': is the Less-or-equal `comparator`. This includes all versions less
             than or equal to the provided `version`. For example '<=1.2.3' means
-            less than or equal to "1.2.3".</li>
+            less than or equal to '1.2.3'.</li>
           <li>'>' is the Greater-than `comparator`. This includes all versions greater
             than the provided `version`.</li>
           <li>'>=' is the Greater-or-equal `comparator`. This includes all versions
             greater than or equal to the provided `version`. For example '>=1.2.3'
-            means greater than or equal to "1.2.3".</li>
+            means greater than or equal to '1.2.3'.</li>
           <li>The special Asterisk '\*' `comparator` matches any version. It shall be
             used alone and exclusive of any other `comparator` and shall not be
             followed by a `version`. For example, 'vers:deb/\*' represents all
@@ -421,7 +421,7 @@
           this version satisfies the range specification. Equality is based on the
           equality of two normalized version strings according to the applicable VERS
           `type`. For most schemes, this is a simple string equality. A `type` may,
-          however, define normalization or other rules for equality such as the "pypi"
+          however, define normalization or other rules for equality such as the PyPI
           rules from PEP 440.</p>
         <p>A package version satisfies VERS `constraints` if it is contained within any
           of the segments defined by the `constraints`.</p>
