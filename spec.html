@@ -253,17 +253,17 @@
       </thead>
       <tr>
         <td>_scheme_</td>
-        <td>Required</td>
+        <td>required</td>
         <td>The URI scheme with the constant value of *vers*.</td>
       </tr>
       <tr>
         <td>_type_</td>
-        <td>Required</td>
+        <td>required</td>
         <td>The Version Range Specifier type such as *deb*, *npm*, *pypi*, *semver* etc.</td>
       </tr>
       <tr>
         <td>_constraints_</td>
-        <td>Required</td>
+        <td>required</td>
         <td>A sequence of one or more version ranges.</td>
       </tr>
     </table>
@@ -513,43 +513,43 @@
         <tr>
           <td>type</td>
           <td>String</td>
-          <td>Required</td>
+          <td>required</td>
           <td>The type string for this VERS type.</td>
         </tr>
         <tr>
           <td>type_name</td>
           <td>String</td>
-          <td>Required</td>
+          <td>required</td>
           <td>The name for this VERS type.</td>
         </tr>
         <tr>
           <td>description</td>
           <td>String</td>
-          <td>Required</td>
+          <td>required</td>
           <td>The description of this VERS type.</td>
         </tr>
         <tr>
           <td>vers_examples</td>
           <td>Array</td>
-          <td>Required</td>
+          <td>required</td>
           <td>Examples for valid VERS ranges for this VERS type.</td>
         </tr>
         <tr>
           <td>native_range_and_vers_equivalent_examples</td>
           <td>Array</td>
-          <td>Optional</td>
+          <td>optional</td>
           <td>List of examples of valid, native version ranges mapped to their corresponding VERS syntax.</td>
         </tr>
         <tr>
           <td>note</td>
           <td>String</td>
-          <td>Optional</td>
+          <td>optional</td>
           <td>Note about this VERS type.</td>
         </tr>
         <tr>
           <td>reference_urls</td>
           <td>Array</td>
-          <td>Optional</td>
+          <td>optional</td>
           <td>List of informational reference URLs about this VERS type, such as specifications or reference code.</td>
         </tr>
       </table>
@@ -640,25 +640,25 @@
         <tr>
           <td>native_range</td>
           <td>String</td>
-          <td>Required</td>
+          <td>required</td>
           <td>Native range example for this VERS type.</td>
         </tr>
         <tr>
           <td>vers</td>
           <td>String</td>
-          <td>Required</td>
+          <td>required</td>
           <td>Corresponding VERS notation for this VERS type.</td>
         </tr>
         <tr>
           <td>note</td>
           <td>String</td>
-          <td>Optional</td>
+          <td>optional</td>
           <td>Optional note about this example.</td>
         </tr>
         <tr>
           <td>reference_url</td>
           <td>URI as specified in RFC 3986</td>
-          <td>Optional</td>
+          <td>optional</td>
           <td>Optional reference URL for this native range example.</td>
         </tr>
       </table>
